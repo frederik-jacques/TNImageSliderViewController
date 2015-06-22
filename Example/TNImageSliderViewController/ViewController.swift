@@ -7,18 +7,81 @@
 //
 
 import UIKit
+import TNImageSliderViewController
 
 class ViewController: UIViewController {
-
+    
+    // MARK: - IBOutlets
+    
+    // MARK: - Properties
+    var imageSliderVC:TNImageSliderViewController!
+    
+    // MARK: - Initializers methods
+    
+    // MARK: - Lifecycle methods
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        println("[ViewController] Prepare for segue")
+        
+        if( segue.identifier == "seg_imageSlider" ){
+            
+            imageSliderVC = segue.destinationViewController as! TNImageSliderViewController
+            
+        }
+        
+    }
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+        
+        println("[ViewController] View did load")
+        
+        let image1 = UIImage(named: "image-1")
+        let image2 = UIImage(named: "image-2")
+        let image3 = UIImage(named: "image-3")
+        
+        if let image1 = image1, let image2 = image2, let image3 = image3 {
 
+            // 1. Set the image array with UIImage objects
+            imageSliderVC.images = [image1, image2, image3]
+            
+            // 2. If you want, you can set some options
+            var options = TNImageSliderViewOptions()
+            options.pageControlHidden = false
+            options.scrollDirection = .Horizontal
+            options.pageControlCurrentIndicatorTintColor = UIColor.yellowColor()
+            
+            imageSliderVC.options = options
+            
+        }else {
+    
+            println("[ViewController] Could not find one of the images in the image catalog")
+            
+        }
+    
+    }
+    
     override func didReceiveMemoryWarning() {
+        
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
-
+    
+    // MARK: - Private methods
+    
+    // MARK: - Public methods
+    
+    // MARK: - Getter & setter methods
+    
+    // MARK: - IBActions
+    
+    // MARK: - Target-Action methods
+    
+    // MARK: - Notification handler methods
+    
+    // MARK: - Datasource methods
+    
+    // MARK: - Delegate methods
+    
 }
-

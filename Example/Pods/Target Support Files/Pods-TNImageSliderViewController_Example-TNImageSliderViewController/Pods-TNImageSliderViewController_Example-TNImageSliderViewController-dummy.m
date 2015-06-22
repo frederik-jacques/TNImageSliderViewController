@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_TNImageSliderViewController_Example_TNImageSliderViewController : NSObject
+@end
+@implementation PodsDummy_Pods_TNImageSliderViewController_Example_TNImageSliderViewController
+@end

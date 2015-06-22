@@ -1,0 +1,14 @@
+PODS:
+  - TNImageSliderViewController (0.1.0)
+
+DEPENDENCIES:
+  - TNImageSliderViewController (from `../`)
+
+EXTERNAL SOURCES:
+  TNImageSliderViewController:
+    :path: ../
+
+SPEC CHECKSUMS:
+  TNImageSliderViewController: 47a4bbc71a8fb2797e982667f11452451246f539
+
+COCOAPODS: 0.37.2
