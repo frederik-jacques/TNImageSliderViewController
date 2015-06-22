@@ -11,12 +11,6 @@ Pod::Spec.new do |s|
   s.name             = "TNImageSliderViewController"
   s.version          = "0.1.0"
   s.summary          = "A Swift image slider component based on UICollectionView"
-  s.description      = <<-DESC
-                       An optional longer description of TNImageSliderViewController
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
-                       DESC
   s.homepage         = "https://github.com/frederik-jacques/TNImageSliderViewController"
   # s.screenshots     = "http://cl.ly/bjyO/tnimagesliderviewcontroller_s1.png", "http://cl.ly/bjch/tnimagesliderviewcontroller_s2.png"
   s.license          = 'MIT'
