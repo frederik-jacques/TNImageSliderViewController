@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'TNImageSliderViewController_Example', :exclusive => true do
+  pod "TNImageSliderViewController", :path => "../"
+end
+
+target 'TNImageSliderViewController_Tests', :exclusive => true do
+  pod "TNImageSliderViewController", :path => "../"
+
+  
+end
