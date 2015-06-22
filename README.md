@@ -9,9 +9,7 @@ TNImageSliderViewController is an image slider component written in Swift. It cr
 This component can deal with orientation changes.
 
 ## Demo
-<video class="video-js vjs-default-skin" controls preload="auto" width="343" height="364">
-<source src="http://cl.ly/bk4C/TNImageSliderViewController.mp4" type='video/mp4'>
-</video>
+![Demo](http://cl.ly/bjib/tnimagescroller-demo.gif)
 
 ## Usage
 
