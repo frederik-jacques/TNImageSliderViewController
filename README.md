@@ -21,7 +21,7 @@ TNImageSliderViewController is available through [CocoaPods](http://cocoapods.or
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "TNImageSliderViewController"
+pod 'TNImageSliderViewController'
 ```
 
 ### Using storyboards
