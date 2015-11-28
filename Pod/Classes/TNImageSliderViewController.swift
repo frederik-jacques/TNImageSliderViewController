@@ -13,6 +13,7 @@ public struct TNImageSliderViewOptions {
     public var backgroundColor:UIColor
     public var pageControlHidden:Bool
     public var pageControlCurrentIndicatorTintColor:UIColor
+    public var autoSlideIntervalInSeconds:NSTimeInterval
     
     public init(){
         
@@ -20,6 +21,7 @@ public struct TNImageSliderViewOptions {
         self.backgroundColor = UIColor.blackColor()
         self.pageControlHidden = false
         self.pageControlCurrentIndicatorTintColor = UIColor.whiteColor()
+        self.autoSlideIntervalInSeconds = 0
         
     }
     
@@ -29,6 +31,7 @@ public struct TNImageSliderViewOptions {
         self.backgroundColor = backgroundColor
         self.pageControlHidden = pageControlHidden
         self.pageControlCurrentIndicatorTintColor = pageControlCurrentIndicatorTintColor
+        self.autoSlideIntervalInSeconds = 0
         
     }
 }
@@ -63,6 +66,8 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
                 collectionView.backgroundColor = options.backgroundColor
                 pageControl.hidden = options.pageControlHidden
                 pageControl.currentPageIndicatorTintColor = options.pageControlCurrentIndicatorTintColor
+                
+                setupAutoSliderIfNeeded()
                 
             }
             
@@ -226,6 +231,40 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
         
     }
     
+    private func setupAutoSliderIfNeeded() {
+        
+        if options.autoSlideIntervalInSeconds > 0 {
+            NSTimer.scheduledTimerWithTimeInterval(options.autoSlideIntervalInSeconds, target: self, selector: "timerDidFire:", userInfo: nil, repeats: true)
+        }
+        
+    }
+    
+    func timerDidFire(timer: NSTimer) {
+        
+        let theNextPage = currentPage + 1
+        var contentOffSet = CGPointZero
+        
+        if theNextPage < images.count {
+            switch( self.collectionViewLayout.scrollDirection ) {
+                
+            case .Horizontal:
+                
+                contentOffSet = CGPoint(x: Int(self.collectionView.bounds.size.width) * theNextPage, y: 0)
+                
+            case .Vertical:
+                
+                contentOffSet = CGPoint(x: 0, y: Int(self.collectionView.bounds.size.height) * theNextPage)
+                
+            }
+        }
+        
+        if contentOffSet != CGPointZero {
+            collectionView.setContentOffset(contentOffSet, animated: true)
+        } else {
+            timer.invalidate()
+        }
+    }
+    
     // MARK: - Public methods
     
     // MARK: - Getter & setter methods
@@ -277,6 +316,13 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
         
         // If the scroll animation ended, update the page control to reflect the current page we are on
         pageControl.currentPage = currentPage
+        
+    }
+    
+    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        
+        // Called when manually setting contentOffset
+        scrollViewDidEndDecelerating(scrollView)
         
     }
 }
