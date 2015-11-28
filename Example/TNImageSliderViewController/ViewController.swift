@@ -52,6 +52,7 @@ class ViewController: UIViewController {
             options.scrollDirection = .Horizontal
             options.pageControlCurrentIndicatorTintColor = UIColor.yellowColor()
             options.autoSlideIntervalInSeconds = 2
+            options.shouldStartFromBeginning = true
             
             imageSliderVC.options = options
             

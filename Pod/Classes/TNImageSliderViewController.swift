@@ -14,6 +14,7 @@ public struct TNImageSliderViewOptions {
     public var pageControlHidden:Bool
     public var pageControlCurrentIndicatorTintColor:UIColor
     public var autoSlideIntervalInSeconds:NSTimeInterval
+    public var shouldStartFromBeginning:Bool
     
     public init(){
         
@@ -22,6 +23,7 @@ public struct TNImageSliderViewOptions {
         self.pageControlHidden = false
         self.pageControlCurrentIndicatorTintColor = UIColor.whiteColor()
         self.autoSlideIntervalInSeconds = 0
+        self.shouldStartFromBeginning = false
         
     }
     
@@ -32,6 +34,7 @@ public struct TNImageSliderViewOptions {
         self.pageControlHidden = pageControlHidden
         self.pageControlCurrentIndicatorTintColor = pageControlCurrentIndicatorTintColor
         self.autoSlideIntervalInSeconds = 0
+        self.shouldStartFromBeginning = false
         
     }
 }
@@ -258,7 +261,7 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
             }
         }
         
-        if contentOffSet != CGPointZero {
+        if options.shouldStartFromBeginning || contentOffSet != CGPointZero {
             collectionView.setContentOffset(contentOffSet, animated: true)
         } else {
             timer.invalidate()
