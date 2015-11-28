@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     // MARK: - Lifecycle methods
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        println("[ViewController] Prepare for segue")
+        print("[ViewController] Prepare for segue")
         
         if( segue.identifier == "seg_imageSlider" ){
             
@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
-        println("[ViewController] View did load")
+        print("[ViewController] View did load")
         
         let image1 = UIImage(named: "image-1")
         let image2 = UIImage(named: "image-2")
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
             
         }else {
     
-            println("[ViewController] Could not find one of the images in the image catalog")
+            print("[ViewController] Could not find one of the images in the image catalog")
             
         }
     
