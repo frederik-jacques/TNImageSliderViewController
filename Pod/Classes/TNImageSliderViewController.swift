@@ -13,6 +13,8 @@ public struct TNImageSliderViewOptions {
     public var backgroundColor:UIColor
     public var pageControlHidden:Bool
     public var pageControlCurrentIndicatorTintColor:UIColor
+    public var autoSlideIntervalInSeconds:NSTimeInterval
+    public var shouldStartFromBeginning:Bool
     
     public init(){
         
@@ -20,6 +22,8 @@ public struct TNImageSliderViewOptions {
         self.backgroundColor = UIColor.blackColor()
         self.pageControlHidden = false
         self.pageControlCurrentIndicatorTintColor = UIColor.whiteColor()
+        self.autoSlideIntervalInSeconds = 0
+        self.shouldStartFromBeginning = false
         
     }
     
@@ -29,6 +33,8 @@ public struct TNImageSliderViewOptions {
         self.backgroundColor = backgroundColor
         self.pageControlHidden = pageControlHidden
         self.pageControlCurrentIndicatorTintColor = pageControlCurrentIndicatorTintColor
+        self.autoSlideIntervalInSeconds = 0
+        self.shouldStartFromBeginning = false
         
     }
 }
@@ -63,6 +69,8 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
                 collectionView.backgroundColor = options.backgroundColor
                 pageControl.hidden = options.pageControlHidden
                 pageControl.currentPageIndicatorTintColor = options.pageControlCurrentIndicatorTintColor
+                
+                setupAutoSliderIfNeeded()
                 
             }
             
@@ -106,7 +114,7 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
         
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
         
@@ -175,7 +183,7 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
         layout.minimumInteritemSpacing = 0
         
         collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout:layout)
-        collectionView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.pagingEnabled = true
         
         let bundle = NSBundle(forClass: TNImageSliderViewController.classForCoder())
@@ -187,8 +195,8 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
         collectionView.dataSource = self
         view.addSubview(collectionView)
     
-        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[collectionView]|", options: nil, metrics: nil, views: ["collectionView":collectionView])
-        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[collectionView]|", options: nil, metrics: nil, views: ["collectionView":collectionView])
+        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[collectionView]|", options: [], metrics: nil, views: ["collectionView":collectionView])
+        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[collectionView]|", options: [], metrics: nil, views: ["collectionView":collectionView])
         
         view.addConstraints(horizontalConstraints)
         view.addConstraints(verticalConstraints)
@@ -198,7 +206,7 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
     private func setupPageControl() {
         
         pageControl = UIPageControl()
-        pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
         
         pageControl.currentPage = 0
         pageControl.currentPageIndicatorTintColor = options.pageControlCurrentIndicatorTintColor
@@ -224,6 +232,40 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
         
         view.addConstraints([centerXConstraint, bottomConstraint])
         
+    }
+    
+    private func setupAutoSliderIfNeeded() {
+        
+        if options.autoSlideIntervalInSeconds > 0 {
+            NSTimer.scheduledTimerWithTimeInterval(options.autoSlideIntervalInSeconds, target: self, selector: "timerDidFire:", userInfo: nil, repeats: true)
+        }
+        
+    }
+    
+    func timerDidFire(timer: NSTimer) {
+        
+        let theNextPage = currentPage + 1
+        var contentOffSet = CGPointZero
+        
+        if theNextPage < images.count {
+            switch( self.collectionViewLayout.scrollDirection ) {
+                
+            case .Horizontal:
+                
+                contentOffSet = CGPoint(x: Int(self.collectionView.bounds.size.width) * theNextPage, y: 0)
+                
+            case .Vertical:
+                
+                contentOffSet = CGPoint(x: 0, y: Int(self.collectionView.bounds.size.height) * theNextPage)
+                
+            }
+        }
+        
+        if options.shouldStartFromBeginning || contentOffSet != CGPointZero {
+            collectionView.setContentOffset(contentOffSet, animated: true)
+        } else {
+            timer.invalidate()
+        }
     }
     
     // MARK: - Public methods
@@ -277,6 +319,13 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
         
         // If the scroll animation ended, update the page control to reflect the current page we are on
         pageControl.currentPage = currentPage
+        
+    }
+    
+    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        
+        // Called when manually setting contentOffset
+        scrollViewDidEndDecelerating(scrollView)
         
     }
 }
