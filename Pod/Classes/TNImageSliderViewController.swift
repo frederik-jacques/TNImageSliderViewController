@@ -50,7 +50,7 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
     // MARK: - IBOutlets
     
     // MARK: - Properties
-    weak var delegate:TNImageSliderViewControllerDelegate?
+    public weak var delegate:TNImageSliderViewControllerDelegate?
     
     var collectionView:UICollectionView!
     var collectionViewLayout:UICollectionViewFlowLayout {
