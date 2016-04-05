@@ -21,6 +21,7 @@ public struct TNImageSliderViewOptions {
     public var pageControlCurrentIndicatorTintColor:UIColor
     public var autoSlideIntervalInSeconds:NSTimeInterval
     public var shouldStartFromBeginning:Bool
+    public var imageContentMode:UIViewContentMode
     
     public init(){
         
@@ -30,10 +31,11 @@ public struct TNImageSliderViewOptions {
         self.pageControlCurrentIndicatorTintColor = UIColor.whiteColor()
         self.autoSlideIntervalInSeconds = 0
         self.shouldStartFromBeginning = false
+        self.imageContentMode = .ScaleToFill
         
     }
     
-    public init( scrollDirection:UICollectionViewScrollDirection, backgroundColor:UIColor, pageControlHidden:Bool, pageControlCurrentIndicatorTintColor:UIColor){
+    public init( scrollDirection:UICollectionViewScrollDirection, backgroundColor:UIColor, pageControlHidden:Bool, pageControlCurrentIndicatorTintColor:UIColor, imageContentMode:UIViewContentMode){
         
         self.scrollDirection = scrollDirection
         self.backgroundColor = backgroundColor
@@ -41,6 +43,7 @@ public struct TNImageSliderViewOptions {
         self.pageControlCurrentIndicatorTintColor = pageControlCurrentIndicatorTintColor
         self.autoSlideIntervalInSeconds = 0
         self.shouldStartFromBeginning = false
+        self.imageContentMode = imageContentMode
         
     }
 }
@@ -309,7 +312,9 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TNImageCell", forIndexPath: indexPath) as! TNImageSliderCollectionViewCell
+        
         cell.imageView.image = images[indexPath.row]
+        cell.imageView.contentMode = options.imageContentMode
         
         return cell
         

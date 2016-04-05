@@ -42,7 +42,10 @@ If you want, you can also set the `options` property (instance of `TNImageSlider
 | scrollDirection   | Set the collectionview to scroll horizontal or vertical  |
 | backgroundColor   | A UIColor object to set the background color of the collectionview   |
 | pageControlHidden | Hides the UIPageControl |  
-| pageControlCurrentIndicatorTintColor | A UIColor object to set the indicator color |  
+| pageControlCurrentIndicatorTintColor | A UIColor object to set the indicator color |
+| pageControlCurrentIndicatorTintColor | A UIColor object to set the indicator color |
+| shouldStartFromBeginning | Boolean, start at the first picture |
+| imageContentMode | UIViewContentMode, How should the images be scaled |
 
 ### Delegate
 If you want to be informed that the image slider has scrolled to a specific page, you can set the `delegate` property.

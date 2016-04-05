@@ -53,6 +53,7 @@ class ViewController: UIViewController {
             options.pageControlCurrentIndicatorTintColor = UIColor.yellowColor()
             options.autoSlideIntervalInSeconds = 2
             options.shouldStartFromBeginning = true
+            options.imageContentMode = .ScaleAspectFit
             
             imageSliderVC.options = options
             
