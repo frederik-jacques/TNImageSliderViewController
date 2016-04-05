@@ -27,11 +27,13 @@ pod "TNImageSliderViewController"
 ### Using storyboards
 * Add a container view to your Storyboard.
 * Set the class in the Identity Inspector to `TNImageSliderViewController`
+* Set the `module` field to `TNImageSliderViewController` if you work with CocoaPods
 * Give the embed segue a name e.g `seg_imageSlider`
 * Go to the ViewController class in which you have embedded the TNImageSliderViewController class
+* At the top of the file, import `TNImageSliderViewController`
 * Create a property to hold the instance of `TNImageSliderViewController`
 * Fill in this property in `prepareForSegue:identifier:`
-* Set the `images` property of the `TNImageSliderViewController` to an array of UIImage objects
+* Set the `images` property of the `TNImageSliderViewController` to an array of UIImage objects, only set this property after the `viewDidLoad` method has been executed or you will get a runtime error
 
 If you want, you can also set the `options` property (instance of `TNImageSliderViewOptions`)
 
