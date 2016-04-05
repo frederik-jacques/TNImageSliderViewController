@@ -44,6 +44,9 @@ If you want, you can also set the `options` property (instance of `TNImageSlider
 | pageControlHidden | Hides the UIPageControl |  
 | pageControlCurrentIndicatorTintColor | A UIColor object to set the indicator color |  
 
+### Delegate
+If you want to be informed that the image slider has scrolled to a specific page, you can set the `delegate` property.
+The delegate has one method `imageSlider( imageSlider:TNImageSliderViewController, didScrollToPage pageNumber:Int )`
 
 ## Author
 

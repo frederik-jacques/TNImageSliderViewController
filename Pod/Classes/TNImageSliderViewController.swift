@@ -7,6 +7,12 @@
 
 import UIKit
 
+public protocol TNImageSliderViewControllerDelegate:class {
+    
+    func imageSlider( imageSlider:TNImageSliderViewController, didScrollToPage pageNumber:Int )
+    
+}
+
 public struct TNImageSliderViewOptions {
     
     public var scrollDirection:UICollectionViewScrollDirection
@@ -44,6 +50,8 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
     // MARK: - IBOutlets
     
     // MARK: - Properties
+    weak var delegate:TNImageSliderViewControllerDelegate?
+    
     var collectionView:UICollectionView!
     var collectionViewLayout:UICollectionViewFlowLayout {
     
@@ -319,6 +327,8 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
         
         // If the scroll animation ended, update the page control to reflect the current page we are on
         pageControl.currentPage = currentPage
+        
+        self.delegate?.imageSlider(self, didScrollToPage: currentPage)
         
     }
     
