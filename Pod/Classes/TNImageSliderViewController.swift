@@ -237,7 +237,7 @@ public class TNImageSliderViewController: UIViewController, UICollectionViewData
     private func setupAutoSliderIfNeeded() {
         
         if options.autoSlideIntervalInSeconds > 0 {
-            NSTimer.scheduledTimerWithTimeInterval(options.autoSlideIntervalInSeconds, target: self, selector: "timerDidFire:", userInfo: nil, repeats: true)
+            NSTimer.scheduledTimerWithTimeInterval(options.autoSlideIntervalInSeconds, target: self, selector: #selector(TNImageSliderViewController.timerDidFire(_:)), userInfo: nil, repeats: true)
         }
         
     }
